@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+  .well
+    | How many times did you do each workshop?
+  if error
+    .alert.alert-danger
+      =error
+  form.form(method='POST')
+    .form-group
+      label(for='initials') Initials or Anonymous Identifier
+      input.form-control#initials(name='initials')
+    for workshop in workshops
+      .form-group
+        label(for=workshop)= workshop 
+        input.form-control(name=workshop, type='number' id=workshop, value=0)
+    button.btn.btn-primary Save

@@ -1,0 +1,10 @@
+extends layout
+block content
+  table.table
+    for user in users
+      tr
+          td
+            =user.initials
+          for workshop in workshops
+            td
+              =user[workshop]
