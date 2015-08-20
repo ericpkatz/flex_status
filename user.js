@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect("mongodb://localhost/flex_status_db" || process.env.CONN, function(msg){
+mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , function(msg){
   console.log(msg);
 });
 
