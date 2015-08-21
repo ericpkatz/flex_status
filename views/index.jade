@@ -7,12 +7,12 @@ block content
   if error
     .alert.alert-danger
       =error
-  form.form(method='POST')
+  form.form(method='POST' action='/')
     .form-group
       label(for='initials') Initials or Anonymous Identifier
-      input.form-control#initials(name='initials')
+      input.input-sm.form-control#initials(name='initials', value=user.initials)
     for workshop in workshops
       .form-group
         label(for=workshop)= workshop 
-        input.form-control(name=workshop, type='number' id=workshop, value=0)
+        input.form-control.input-sm(name=workshop, type='number' id=workshop, value=user[workshop])
     button.btn.btn-primary Save

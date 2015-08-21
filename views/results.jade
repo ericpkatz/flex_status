@@ -4,7 +4,9 @@ block content
     for user in users
       tr
           td
-            =user.initials
+            a(href='/#{user._id}')
+              =user.initials
           for workshop in workshops
             td
-              =user[workshop]
+              span.label(class={ 'label-danger': user[workshop] == 0, 'label-warning': user[workshop] == 1, 'label-default': user[workshop] == 2, 'label-success': user[workshop] > 2 })
+                =user[workshop]

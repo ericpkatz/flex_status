@@ -8,15 +8,22 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.set("view engine", "jade");
 
-app.get('/', function(req, res){
-  res.render('index', { workshops: User.workshops(), tab: '/', error: req.query.error });
-});
 
 app.get('/results', function(req, res){
   User.find()
     .then(function(users){
       res.render('results', { users: users, workshops: User.workshops(), tab: '/results' });
     });
+});
+
+app.get('/:id?', function(req, res){
+  if(req.params.id)
+    User.findById(req.params.id)
+      .then(function(user){
+          res.render('index', { user: user, workshops: User.workshops(), tab: '/', error: req.query.error });
+      });
+  else
+    res.render('index', { user: new User(), workshops: User.workshops(), tab: '/', error: req.query.error });
 });
 
 app.post('/', function(req, res){
