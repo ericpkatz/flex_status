@@ -44,6 +44,9 @@ app.post('/', function(req, res){
     else if(user.password != req.body.password){
       _user = user;
       _user.password = null;
+      User.workshops().forEach(function(ws){
+        _user[ws] = req.body[ws];
+      });
       throw('Bad password');
     }
     else
