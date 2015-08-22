@@ -6,6 +6,7 @@ mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , fun
 
 var workshops = [
   "twitterjs",
+  "practical promises",
   "FQL",
   "SQL",
   "twitterSQL",
@@ -13,7 +14,8 @@ var workshops = [
 ];
 
 var UserSchema = mongoose.Schema({
-  initials: { type: String, required: true, unique: true}
+  initials: { type: String, required: true, unique: true},
+  password: { type: String, required: true }
 });
 
 workshops.forEach(function(ws){

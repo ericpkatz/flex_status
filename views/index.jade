@@ -11,6 +11,9 @@ block content
     .form-group
       label(for='initials') Initials or Anonymous Identifier
       input.input-sm.form-control#initials(name='initials', value=user.initials)
+    .form-group
+      label(for='password') Password
+      input.input-sm.form-control#password(type='password' name='password', value=user.password)
     for workshop in workshops
       .form-group
         label(for=workshop)= workshop 

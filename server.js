@@ -20,12 +20,14 @@ app.get('/:id?', function(req, res){
   if(req.params.id)
     User.findById(req.params.id)
       .then(function(user){
+          user.password = null;
           res.render('index', { user: user, workshops: User.workshops(), tab: '/', error: req.query.error });
       });
   else
     res.render('index', { user: new User(), workshops: User.workshops(), tab: '/', error: req.query.error });
 });
 
+var _user;
 app.post('/', function(req, res){
   new Promise(function(resolve, reject){
     if(!req.body.initials)
@@ -39,6 +41,11 @@ app.post('/', function(req, res){
   .then(function(user){
     if(!user)
       user = new User(req.body);
+    else if(user.password != req.body.password){
+      _user = user;
+      _user.password = null;
+      throw('Bad password');
+    }
     else
       User.workshops().forEach(function(ws){
         user[ws] = req.body[ws];
@@ -49,7 +56,7 @@ app.post('/', function(req, res){
       res.redirect("/results") 
     })
     .catch(function(ex){
-      res.render('index', { workshops: User.workshops(), tab: '/', error: ex });
+      res.render('index', { user: _user, workshops: User.workshops(), tab: '/', error: ex });
     });
 });
 
