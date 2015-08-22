@@ -4,6 +4,8 @@ var User = require('./user');
 var Promise = require('bluebird');
 
 var app = express();
+app.locals.pretty = true;
+
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.set("view engine", "jade");
