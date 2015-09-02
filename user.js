@@ -10,7 +10,9 @@ var workshops = [
   "FQL",
   "SQL",
   "twitterSQL",
-  "wikistack"
+  "wikistack",
+  "promises",
+  "shoelace"
 ];
 
 var UserSchema = mongoose.Schema({
