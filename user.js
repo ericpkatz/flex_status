@@ -12,7 +12,9 @@ var workshops = [
   "twitterSQL",
   "wikistack",
   "promises",
-  "shoelace"
+  "shoestring",
+  'express self assessment',
+  'mongoose express assessment'
 ];
 
 var UserSchema = mongoose.Schema({
