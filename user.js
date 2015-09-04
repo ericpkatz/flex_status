@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , function(msg){
-  console.log(msg);
 });
 
 var workshops = [

@@ -66,4 +66,18 @@ app.post('/', function(req, res){
 });
 
 
-app.listen(process.env.PORT);
+var port = process.env.PORT || 3000;
+
+app.listen(port, function(){
+  console.log('connected to server on port ' + port);
+
+});
+
+process.on('uncaughtException', function(err){
+  if(err.errno == 'EADDRINUSE')
+    console.log('PORT ' + port + ' is currently in use ');
+  else
+    console.log(err);
+  process.exit(1);
+});
+
