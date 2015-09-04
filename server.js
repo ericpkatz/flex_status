@@ -1,6 +1,16 @@
 var express = require("express");
 var bodyParser = require('body-parser');
-var User = require('./user');
+var User = require('./models').User;
+var db = require('./config/db');
+
+db.connect()
+  .then(function(connection){
+    console.log('connected to database ' + connection.name);
+  })
+  .catch(function(err){
+    console.log(err);
+  });
+
 var Promise = require('bluebird');
 
 var app = express();

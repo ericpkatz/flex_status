@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , function(msg){
-});
+// mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , function(msg){
+// });
 
 var workshops = [
   "twitterjs",
