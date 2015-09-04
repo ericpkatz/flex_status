@@ -26,5 +26,24 @@ describe('User', function(){
     it('there is one user', function(){
       expect(users.length).to.equal(1);
     });
+
+    describe('by initials', function(){
+      var user;
+      beforeEach(function(done){
+
+        User.findByInitials('prof')
+          .then(function(_user){
+            user = _user;
+            done();
+          
+          });
+      
+      });
+
+      it('returns user', function(){
+        expect(user.initials).to.equal('prof');
+      });
+    
+    });
   });
 });

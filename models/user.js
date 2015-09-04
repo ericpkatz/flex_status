@@ -21,6 +21,10 @@ var UserSchema = mongoose.Schema({
   password: { type: String, required: true }
 });
 
+UserSchema.statics.findByInitials = function(initials){
+  return User.findOne({initials: initials});
+}
+
 workshops.forEach(function(ws){
   var obj = {};
   obj[ws] = { type: Number, required: true, default: 0 };
