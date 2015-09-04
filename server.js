@@ -11,6 +11,12 @@ db.connect()
     console.log(err);
   });
 
+if(process.env.SEED)
+  db.seed()
+    .then(function(results){
+      console.log(results);
+    });
+
 var Promise = require('bluebird');
 
 var app = express();

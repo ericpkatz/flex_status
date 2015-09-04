@@ -1,8 +1,10 @@
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
+var User = require('../models').User;
 
 module.exports = {
-  connect: connect
+  connect: connect,
+  seed: seed
 };
 
 var _promise;
@@ -19,4 +21,20 @@ function connect(){
   });
   return _promise;
   
+}
+
+function seed(){
+  return this.connect()
+    .then(function(){
+      return Promise.all([User.remove({})])
+    })
+    .then(function(){
+      return new User({initials: 'prof', password: 'pw'});
+    })
+    .then(function(user){
+      return user.save();
+    })
+    .catch(function(err){
+      console.log(err);
+    });
 }
