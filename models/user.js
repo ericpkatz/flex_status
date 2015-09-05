@@ -12,15 +12,15 @@ var workshopSchema = mongoose.Schema({
 
 var workshops = [
   "twitterjs",
-  "practical promises",
+  "practical_promises",
   "FQL",
   "SQL",
   "twitterSQL",
   "wikistack",
   "promises",
   "shoestring",
-  'express self assessment',
-  'mongoose express assessment'
+  'express_self_assessment',
+  'mongoose_express_assessment'
 ];
 
 var UserSchema = mongoose.Schema({

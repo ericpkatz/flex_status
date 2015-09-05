@@ -14,6 +14,5 @@ $('#initials').typeahead({}, {
         if($('#' + key))
           $('#' + key).val(user[key]);
       });
-    
     });
 });
