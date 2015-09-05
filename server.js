@@ -4,6 +4,7 @@ var User = require('./models').User;
 var db = require('./config/db');
 var session = require('express-session');
 var chalk = require('chalk');
+var path = require('path');
 
 db.connect()
   .then(function(connection){
@@ -23,6 +24,8 @@ var Promise = require('bluebird');
 
 var app = express();
 app.locals.pretty = true;
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -59,6 +62,24 @@ app.get('/results', function(req, res){
 app.get('/logout', function(req, res, next){
   req.session._id = null;
   res.redirect('/');
+});
+
+app.get('/api/users/:q', function(req, res, next){
+  User.find({initials: req.params.q})
+    .then(function(users){
+      var initials = users.map(function(user){
+        return user.initials;
+      });
+      res.send(initials);
+    });
+});
+
+app.get('/api/user/:initials', function(req, res, next){
+  User.findByInitials(req.params.initials)
+    .then(function(user){
+      user.password = null;
+      res.send(user);
+    });
 });
 
 app.get('/', function(req, res){

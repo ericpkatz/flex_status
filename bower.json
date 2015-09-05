@@ -1,0 +1,20 @@
+{
+  "name": "flex_status",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ericpkatz/flex_status",
+  "authors": [
+    "Eric P. Katz <ericpkatz@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "typeahead.js": "~0.11.1"
+  }
+}

@@ -26,6 +26,12 @@ function connect(){
 function seed(){
   var prof =  new User({initials: 'prof', password: 'pw'});
   var flexor =  new User({initials: 'flexor', password: 'flex'});
+  [prof, flexor].forEach(function(user){
+    User.workshops().forEach(function(ws){
+      user[ws] = Math.floor(Math.random()*4);
+    });
+  
+  });
   return this.connect()
     .then(function(){
       return Promise.all([User.remove({})])

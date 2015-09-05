@@ -16,7 +16,8 @@ block content
           input.input-sm.form-control#initials(name='initials', value=currentUser.initials, disabled='disabled')
           input(type='hidden', name='initials', value=currentUser.initials)
         else
-          input.input-sm.form-control#initials(name='initials', value=user.initials)
+          .typeahead-wrapper
+            input.input-sm.form-control#initials(name='initials', value=user.initials)
     .form-group.row
       .col-md-4
         label(for='password') Password
@@ -30,3 +31,4 @@ block content
         .col-md-3
           input.form-control.input-sm(name=workshop, type='number' id=workshop, value=user[workshop])
     button.btn.btn-primary Save
+  script(type="text/javascript" src="/javascripts/app.js")
