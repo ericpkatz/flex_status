@@ -7,7 +7,9 @@
     "bluebird": "^2.9.34",
     "body-parser": "^1.13.3",
     "chai": "^3.2.0",
+    "chalk": "^1.1.1",
     "express": "^4.13.3",
+    "express-session": "^1.11.3",
     "jade": "^1.11.0",
     "mocha": "^2.3.0",
     "mongoose": "^4.1.3"

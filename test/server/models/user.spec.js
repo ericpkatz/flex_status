@@ -1,6 +1,7 @@
 var expect = require('chai').expect;
 var db = require('../../../config/db');
 var User = require('../../../models').User;
+var Promise = require('bluebird');
 
 describe('User', function(){
   beforeEach(function(done){
@@ -24,24 +25,26 @@ describe('User', function(){
     
     });
     it('there is one user', function(){
-      expect(users.length).to.equal(1);
+      expect(users.length).to.equal(2);
     });
 
     describe('by initials', function(){
-      var user;
+      var prof, flexor;
       beforeEach(function(done){
 
-        User.findByInitials('prof')
-          .then(function(_user){
-            user = _user;
+        Promise.all([ User.findByInitials('prof'), User.findByInitials('flexor')])
+          .then(function(results){
+            prof = results[0];
+            flexor = results[1];
             done();
-          
           });
-      
       });
 
-      it('returns user', function(){
-        expect(user.initials).to.equal('prof');
+      it('prof can be found', function(){
+        expect(prof.initials).to.equal('prof');
+      });
+      it('flexor can be found', function(){
+        expect(flexor.initials).to.equal('flexor');
       });
     
     });

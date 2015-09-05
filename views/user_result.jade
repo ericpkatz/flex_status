@@ -1,0 +1,11 @@
+tr(class={'active': currentUser && currentUser.initials == user.initials})
+  td
+    if currentUser && currentUser.initials == user.initials
+      a(href='/')
+        =user.initials
+    else
+      =user.initials
+  for workshop in workshops
+    td(width=(parseInt(100/(workshops.length + 1))) + '%')
+      span.label(class={ 'label-danger': user[workshop] == 0, 'label-warning': user[workshop] == 1, 'label-default': user[workshop] == 2, 'label-success': user[workshop] > 2 })
+        =user[workshop]

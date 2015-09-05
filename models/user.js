@@ -3,6 +3,13 @@ var mongoose = require('mongoose');
 // mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , function(msg){
 // });
 
+var workshopSchema = mongoose.Schema({
+  key: String,
+  displayName: String,
+  keyConcepts: [String]
+});
+
+
 var workshops = [
   "twitterjs",
   "practical promises",

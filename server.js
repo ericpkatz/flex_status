@@ -2,13 +2,15 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var User = require('./models').User;
 var db = require('./config/db');
+var session = require('express-session');
+var chalk = require('chalk');
 
 db.connect()
   .then(function(connection){
-    console.log('connected to database ' + connection.name);
+    console.log(chalk.green('connected to database ' + connection.name));
   })
   .catch(function(err){
-    console.log(err);
+    console.log(chalk.red(err));
   });
 
 if(process.env.SEED)
@@ -24,7 +26,27 @@ app.locals.pretty = true;
 
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use(session({ 
+  secret: process.env.SECRET || 'foo',
+  saveUninitialized: false,
+  resave: false
+}));
+
 app.set("view engine", "jade");
+
+app.use(function(req, res, next){
+  if(!req.session._id)
+    return next();
+  User.findById(req.session._id)
+    .then(function(user){
+      res.locals.currentUser = user;
+      next();
+    })
+    .catch(function(err){
+      console.log(err);
+      next(err);
+    });
+});
 
 
 app.get('/results', function(req, res){
@@ -34,13 +56,16 @@ app.get('/results', function(req, res){
     });
 });
 
-app.get('/:id?', function(req, res){
-  if(req.params.id)
-    User.findById(req.params.id)
-      .then(function(user){
-          user.password = null;
-          res.render('index', { user: user, workshops: User.workshops(), tab: '/', error: req.query.error });
-      });
+app.get('/logout', function(req, res, next){
+  req.session._id = null;
+  res.redirect('/');
+});
+
+app.get('/', function(req, res){
+  if(res.locals.currentUser){
+      res.locals.currentUser.password = null;
+      res.render('index', { user: res.locals.currentUser, workshops: User.workshops(), tab: '/', error: req.query.error });
+  }
   else
     res.render('index', { user: new User(), workshops: User.workshops(), tab: '/', error: req.query.error });
 });
@@ -74,9 +99,11 @@ app.post('/', function(req, res){
     return user.save();
   })
   .then(function(user){
+      req.session._id = user._id;
       res.redirect("/results") 
     })
     .catch(function(ex){
+      console.log(ex);
       res.render('index', { user: _user, workshops: User.workshops(), tab: '/', error: ex });
     });
 });
@@ -85,7 +112,7 @@ app.post('/', function(req, res){
 var port = process.env.PORT || 3000;
 
 app.listen(port, function(){
-  console.log('connected to server on port ' + port);
+  console.log(chalk.green('connected to server on port ' + port));
 
 });
 
