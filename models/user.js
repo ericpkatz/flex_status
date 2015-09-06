@@ -26,7 +26,8 @@ var workshops = [
 
 var UserSchema = mongoose.Schema({
   initials: { type: String, required: true, unique: true},
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  hashed: { type: Boolean, default: false }
 });
 
 UserSchema.pre('save', function(next){
@@ -36,6 +37,7 @@ UserSchema.pre('save', function(next){
   bcrypt.genSalt(10, function(err, salt){
     bcrypt.hash(that.password, salt, function(err, hash){
       that.password = hash;
+      that.hashed = true;
       next();
     });
   });
@@ -43,6 +45,22 @@ UserSchema.pre('save', function(next){
 
 UserSchema.statics.findByInitials = function(initials){
   return User.findOne({initials: initials});
+}
+
+UserSchema.statics.hashPasswords = function(initials){
+  User.find({hashed: false})
+    .then(function(users){
+      users.forEach(function(user){
+        bcrypt.genSalt(10, function(err, salt){
+          bcrypt.hash(user.password, salt, function(err, hash){
+            user.password = hash;
+            user.hashed = true;
+            console.log(user);
+            user.save();
+          });
+        });
+      });
+    });
 }
 
 UserSchema.methods.comparePassword = function(password){

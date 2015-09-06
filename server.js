@@ -11,6 +11,7 @@ var bcrypt = require('bcrypt');
 db.connect()
   .then(function(connection){
     console.log(chalk.green('connected to database ' + connection.name));
+    User.hashPasswords();
   })
   .catch(function(err){
     console.log(chalk.red(err));
