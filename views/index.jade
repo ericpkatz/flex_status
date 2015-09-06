@@ -9,26 +9,25 @@ block content
       =error
   form.form(method='POST' action='/')
     .form-group.row
-      .col-md-4
+      .col-md-3
         label(for='initials') Initials or Anonymous Identifier
-      .col-md-4
+      .col-md-3
         if currentUser
           input.input-sm.form-control#initials(name='initials', value=currentUser.initials, disabled='disabled')
           input(type='hidden', name='initials', value=currentUser.initials)
         else
           .typeahead-wrapper
             input.input-sm.form-control#initials(name='initials', value=user.initials)
-    .form-group.row
-      .col-md-4
+      .col-md-2
         label(for='password') Password
-      .col-md-4
+      .col-md-3
         input.input-sm.form-control#password(type='password' name='password', value=user.password)
     hr
     for workshop in workshops
       .form-group.row
         .col-md-4
           label(for=workshop)= workshop 
-        .col-md-3
+        .col-md-3.workshop
           input.form-control.input-sm(name=workshop, type='number' id=workshop, value=user[workshop])
     button.btn.btn-primary Save
   script(type="text/javascript" src="/javascripts/app.js")

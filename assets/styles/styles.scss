@@ -1,0 +1,38 @@
+$success: #5cb85c ;
+$info: #5bc0de;
+$warning: #f0ad4e;
+$danger: #d9534f;
+
+.row {
+  .success {
+    background-color: $success;
+  }
+  .info {
+    background-color: $info;
+  }
+  .warning {
+    background-color: $warning;
+  }
+  .danger {
+    background-color: $danger;
+  }
+}
+
+.typeahead-wrapper {
+  display: block;
+  margin-bottom: 50px;
+}
+.tt-dropdown-menu {
+  background-color: #fff;
+  border: 1px solid #000;
+}
+
+.tt-suggestion.tt-cursor {
+  background-color: #ccc;
+}
+
+.triggered-events {
+  float: right;
+  width: 500px;
+  height: 300px;
+}

@@ -65,7 +65,7 @@ app.get('/logout', function(req, res, next){
 });
 
 app.get('/api/users/:q', function(req, res, next){
-  User.find({initials: req.params.q})
+  User.find({initials: new RegExp(req.params.q, 'i')})
     .then(function(users){
       var initials = users.map(function(user){
         return user.initials;
@@ -125,7 +125,7 @@ app.post('/', function(req, res){
     })
     .catch(function(ex){
       console.log(ex);
-      res.render('index', { user: _user, workshops: User.workshops(), tab: '/', error: ex });
+      res.render('index', { user: _user || new User(), workshops: User.workshops(), tab: '/', error: ex });
     });
 });
 
