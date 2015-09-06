@@ -19,9 +19,6 @@ $('#initials').typeahead({}, {
     });
 });
 
-//loop over inputs with class .workshop
-//set background color based on backgroun
-//
 function map(index, col){
   ['danger', 'warning', 'info', 'success'].forEach(function(className){
     col.removeClass(className);
@@ -46,3 +43,8 @@ function setWorkshopProgress(){
   });
 }
 setWorkshopProgress();
+
+$('#delete').click(function(){
+  var form = $(this).parents('form');
+  form.attr('action', '/?_method=DELETE');
+});

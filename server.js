@@ -5,6 +5,7 @@ var db = require('./config/db');
 var session = require('express-session');
 var chalk = require('chalk');
 var path = require('path');
+var methodOverride = require('method-override');
 
 db.connect()
   .then(function(connection){
@@ -27,6 +28,7 @@ app.locals.pretty = true;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(session({ 
@@ -91,8 +93,27 @@ app.get('/', function(req, res){
     res.render('index', { user: new User(), workshops: User.workshops(), tab: '/', error: req.query.error });
 });
 
+app.delete('/', function(req, res){
+  res.locals.currentUser.remove()
+    .then(function(){
+      res.redirect('/');
+    });
+});
+
 var _user;
 app.post('/', function(req, res){
+  if(res.locals.currentUser){
+    var currentUser = res.locals.currentUser;
+    User.workshops().forEach(function(ws){
+      currentUser[ws] = req.body[ws];
+    });
+    currentUser.save()
+      .then(function(){
+        res.redirect('/results');
+      });
+    return;
+  }
+
   new Promise(function(resolve, reject){
     if(!req.body.initials)
       reject("Initials are required")
