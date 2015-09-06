@@ -3,8 +3,19 @@ $('#initials').typeahead({}, {
     return $.get('/api/users/'+ query)
       .then(function(results){
         cb(results);
-        if(results.length == 1)
-          $('#initials').trigger('selected', results[0]);
+        if(results.length == 1 && $('#initials').val() == results[0]){
+          $.get('/api/user/' + results[0])
+            .then(function(user){
+              Object.keys(user).forEach(function(key){
+                if($('#' + key))
+                  $('#' + key).val(user[key]);
+              });
+              setWorkshopProgress();
+            });
+        }
+        else {
+          resetWorkshopProgress();
+        }
       });
   }
 })
@@ -39,6 +50,13 @@ $('.workshop').on('input', function(cell){
 
 function setWorkshopProgress(){
   $('.workshop').each(function(cell){
+    map($('input', $(this)).val(), $(this));
+  });
+}
+
+function resetWorkshopProgress(){
+  $('.workshop').each(function(cell){
+    $('input', this).val('0');
     map($('input', $(this)).val(), $(this));
   });
 }
