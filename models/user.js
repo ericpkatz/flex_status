@@ -48,17 +48,19 @@ UserSchema.statics.findByInitials = function(initials){
 }
 
 UserSchema.statics.hashPasswords = function(initials){
-  User.find({hashed: false})
+  User.find({})
     .then(function(users){
       users.forEach(function(user){
-        bcrypt.genSalt(10, function(err, salt){
-          bcrypt.hash(user.password, salt, function(err, hash){
-            user.password = hash;
-            user.hashed = true;
-            console.log(user);
-            user.save();
+        if(user.hashed !== true){
+          bcrypt.genSalt(10, function(err, salt){
+            bcrypt.hash(user.password, salt, function(err, hash){
+              user.password = hash;
+              user.hashed = true;
+              console.log(user);
+              user.save();
+            });
           });
-        });
+        }
       });
     });
 }
