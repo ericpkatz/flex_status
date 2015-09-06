@@ -1,3 +1,4 @@
+var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 
 // mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , function(msg){
@@ -28,8 +29,29 @@ var UserSchema = mongoose.Schema({
   password: { type: String, required: true }
 });
 
+UserSchema.pre('save', function(next){
+  var that = this;
+  bcrypt.genSalt(10, function(err, salt){
+    bcrypt.hash(that.password, salt, function(err, hash){
+      that.password = hash;
+      next();
+    });
+  });
+});
+
 UserSchema.statics.findByInitials = function(initials){
   return User.findOne({initials: initials});
+}
+
+UserSchema.methods.comparePassword = function(password){
+  var that = this;
+  return new Promise(function(resolve, reject){
+    bcrypt.compare(password, that.password, function(err, res){
+      if(res === true)
+        return resolve(that);
+      reject('bad password');
+    });
+  });
 }
 
 workshops.forEach(function(ws){

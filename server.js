@@ -6,6 +6,7 @@ var session = require('express-session');
 var chalk = require('chalk');
 var path = require('path');
 var methodOverride = require('method-override');
+var bcrypt = require('bcrypt');
 
 db.connect()
   .then(function(connection){
@@ -18,7 +19,7 @@ db.connect()
 if(process.env.SEED)
   db.seed()
     .then(function(results){
-      console.log(results);
+      // console.log(results);
     });
 
 var Promise = require('bluebird');
@@ -102,6 +103,7 @@ app.delete('/', function(req, res){
 
 var _user;
 app.post('/', function(req, res){
+  //handle logged in user
   if(res.locals.currentUser){
     var currentUser = res.locals.currentUser;
     User.workshops().forEach(function(ws){
@@ -125,19 +127,16 @@ app.post('/', function(req, res){
   })
   .then(function(user){
     if(!user)
-      user = new User(req.body);
-    else if(user.password != req.body.password){
-      _user = user;
-      _user.password = null;
-      User.workshops().forEach(function(ws){
-        _user[ws] = req.body[ws];
-      });
-      throw('Bad password');
-    }
-    else
+      return new User(req.body);
+    return user.comparePassword(req.body.password);
+  })
+  .then(function(user){
       User.workshops().forEach(function(ws){
         user[ws] = req.body[ws];
       });
+      return user;
+  })
+  .then(function(user){
     return user.save();
   })
   .then(function(user){
@@ -146,7 +145,7 @@ app.post('/', function(req, res){
     })
     .catch(function(ex){
       console.log(ex);
-      res.render('index', { user: _user || new User(), workshops: User.workshops(), tab: '/', error: ex });
+      res.render('index', { user: req.body, workshops: User.workshops(), tab: '/', error: ex });
     });
 });
 
