@@ -30,6 +30,8 @@ var UserSchema = mongoose.Schema({
 });
 
 UserSchema.pre('save', function(next){
+  if(!this.isNew)
+    next();
   var that = this;
   bcrypt.genSalt(10, function(err, salt){
     bcrypt.hash(that.password, salt, function(err, hash){
