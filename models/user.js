@@ -21,7 +21,8 @@ var workshops = [
   "promises",
   "shoestring",
   'express_self_assessment',
-  'mongoose_express_assessment'
+  'mongoose_express_assessment',
+  'tripplanner_static_ui'
 ];
 
 var UserSchema = mongoose.Schema({
