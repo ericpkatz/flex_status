@@ -48,23 +48,23 @@ UserSchema.statics.findByInitials = function(initials){
   return User.findOne({initials: initials});
 }
 
-UserSchema.statics.hashPasswords = function(initials){
-  User.find({})
-    .then(function(users){
-      users.forEach(function(user){
-        if(user.hashed !== true){
-          bcrypt.genSalt(10, function(err, salt){
-            bcrypt.hash(user.password, salt, function(err, hash){
-              user.password = hash;
-              user.hashed = true;
-              console.log(user);
-              user.save();
-            });
-          });
-        }
-      });
-    });
-}
+// UserSchema.statics.hashPasswords = function(initials){
+  // User.find({})
+    // .then(function(users){
+      // users.forEach(function(user){
+        // if(user.hashed !== true){
+          // bcrypt.genSalt(10, function(err, salt){
+            // bcrypt.hash(user.password, salt, function(err, hash){
+              // user.password = hash;
+              // user.hashed = true;
+              // console.log(user);
+              // user.save();
+            // });
+          // });
+        // }
+      // });
+    // });
+// }
 
 UserSchema.methods.comparePassword = function(password){
   var that = this;
