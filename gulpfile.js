@@ -12,6 +12,10 @@ gulp.task('sass', function(){
   .pipe(gulp.dest('public/styles'));
 });
 
+gulp.task('watch:sass', function(){
+  gulp.watch('assets/styles/**/*.scss', ['sass'], ['sass']);
+});
+
 gulp.task('install', ['sass', 'bower'], function(){
 
 });

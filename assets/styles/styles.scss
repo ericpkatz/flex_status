@@ -3,6 +3,13 @@ $info: #5bc0de;
 $warning: #f0ad4e;
 $danger: #d9534f;
 
+.workshop-result {
+  height: 100px;
+  line-height: 80px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
 .row {
   .success {
     background-color: $success;

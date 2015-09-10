@@ -1,11 +1,4 @@
 extends layout
 block content
-  table.table
-    thead
-      tr
-        th User
-        for ws in workshops
-          th 
-            =ws.replace(/_/g, ' ')
-    for user in users
-      include user_result
+  for user in users
+    include user_result
