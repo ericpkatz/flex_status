@@ -9,7 +9,12 @@
   .row
     for workshop in workshops
       .col-sm-3.col-md-2
-        div.workshop-result(class={ 'btn btn-danger': user[workshop] == 0, 'btn btn-warning': user[workshop] == 1, 'btn btn-primary': user[workshop] == 2, 'btn btn-success': user[workshop] > 2 })
+        div.workshop-result(class={ 
+          'btn btn-danger': user[workshop] == 0, 
+          'btn btn-warning': user[workshop] == 1, 
+          'btn btn-primary': user[workshop] == 2, 
+          'btn btn-success': user[workshop] > 2 
+          })
           span.small
             =workshop.replace(/_/g, ' ').slice(0,15)
             | 
