@@ -59,6 +59,8 @@ app.use(function(req, res, next){
 app.get('/results', function(req, res){
   User.find()
     .then(function(users){
+      if(req.session._id)
+        users.sort(function(a, b){ return res.locals.currentUser.initials == b.initials; });
       res.render('results', { users: users, workshops: User.workshops(), tab: '/results' });
     });
 });
