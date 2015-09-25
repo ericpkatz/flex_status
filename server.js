@@ -39,6 +39,8 @@ app.use(session({
   resave: false
 }));
 
+app.use('/api/workshops', require('./routes/api/workshops'));
+
 app.set("view engine", "jade");
 
 app.use(function(req, res, next){

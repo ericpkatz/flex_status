@@ -4,7 +4,8 @@ var User = require('../models').User;
 
 module.exports = {
   connect: connect,
-  seed: seed
+  seed: seed,
+  disconnect: disconnect
 };
 
 var _promise;
@@ -20,7 +21,15 @@ function connect(){
     });
   });
   return _promise;
-  
+}
+
+function disconnect(){ 
+  return new Promise(function(resolve, reject){ 
+  _promise = null;
+    mongoose.disconnect(function(){
+      resolve(mongoose.connection);
+    });
+  });
 }
 
 function seed(){

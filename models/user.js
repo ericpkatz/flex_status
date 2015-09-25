@@ -1,9 +1,6 @@
 var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 
-// mongoose.connect(process.env.CONN || "mongodb://localhost/flex_status_db"  , function(msg){
-// });
-
 var workshopSchema = mongoose.Schema({
   key: String,
   displayName: String,
@@ -25,7 +22,8 @@ var workshops = [
   'tripplanner_static_ui',
   'tripplanner_live_ui',
   'tripplanner_persist',
-  'angular-intro'
+  'angular-intro',
+  'angular-factories'
 ];
 
 var UserSchema = mongoose.Schema({

@@ -66,3 +66,21 @@ $('#delete').click(function(){
   var form = $(this).parents('form');
   form.attr('action', '/?_method=DELETE');
 });
+
+$('.workshop-result').click(function(){
+  var key = $(this).attr('data-key');
+  $.getJSON('/api/workshops/' + key, function(result){
+    var modal = $('#workshopModal'); 
+    $('.modal-title', modal).html(key);
+    var $keyConceptList = $('.key-concepts', modal);
+    $keyConceptList.empty();
+    result.keyConcepts.forEach(function(concept){
+      var $listItem = $("<li />").addClass('list-group-item').html(concept);
+      $keyConceptList.append($listItem);
+    });
+    var $workshopUrl = $('.workshop-url', modal);
+    $workshopUrl.attr('href', result.url);
+    $workshopUrl.html(result.url);
+    modal.modal('show');
+  });
+});
