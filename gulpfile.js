@@ -3,15 +3,15 @@ var sass = require('gulp-sass');
 var bower = require('gulp-bower');
 
 var WorkshopData = {
-  "data_structures", {
+  "data_structures": {
     url: 'https://learn.fullstackacademy.com/workshop/54aaa4f403dc870b00bd761f/concepts',
     keyConcepts: []
   },
-  "sorting", {
+  "sorting": {
     url: 'https://learn.fullstackacademy.com/workshop/54aaadadf54d7d0b0042d510/concepts',
     keyConcepts: []
   },
-  "game_of_life", {
+  "game_of_life": {
     url: 'https://learn.fullstackacademy.com/workshop/54aaa7a603dc870b00bd765a/concepts',
     keyConcepts: []
   },
