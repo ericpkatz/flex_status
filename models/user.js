@@ -9,6 +9,9 @@ var workshopSchema = mongoose.Schema({
 
 
 var workshops = [
+  "data_structures",
+  "sorting",
+  "game_of_life",
   "twitterjs",
   "practical_promises",
   "FQL",
@@ -23,7 +26,8 @@ var workshops = [
   'tripplanner_live_ui',
   'tripplanner_persist',
   'angular-intro',
-  'angular-factories'
+  'angular-factories',
+  'angular-directives'
 ];
 
 var UserSchema = mongoose.Schema({

@@ -3,6 +3,18 @@ var sass = require('gulp-sass');
 var bower = require('gulp-bower');
 
 var WorkshopData = {
+  "data_structures", {
+    url: 'https://learn.fullstackacademy.com/workshop/54aaa4f403dc870b00bd761f/concepts',
+    keyConcepts: []
+  },
+  "sorting", {
+    url: 'https://learn.fullstackacademy.com/workshop/54aaadadf54d7d0b0042d510/concepts',
+    keyConcepts: []
+  },
+  "game_of_life", {
+    url: 'https://learn.fullstackacademy.com/workshop/54aaa7a603dc870b00bd765a/concepts',
+    keyConcepts: []
+  },
   "twitterjs" : {},
   "practical_promises":{},
   "FQL": {},
@@ -64,6 +76,10 @@ var WorkshopData = {
       'They are instantiated the first time they are injected',
       'Since factories are singletons, they can retain state'
     ]
+  },
+  'angular-directives': {
+    url: 'https://learn.fullstackacademy.com/workshop/54e3d2ae3804d30c00ba04ce/concepts',
+    keyConcepts: []
   }
 };
 
