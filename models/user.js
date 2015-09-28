@@ -27,7 +27,8 @@ var workshops = [
   'tripplanner_persist',
   'angular-intro',
   'angular-factories',
-  'angular-directives'
+  'angular-directives',
+  'angular-ngModel-forms'
 ];
 
 var UserSchema = mongoose.Schema({

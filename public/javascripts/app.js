@@ -26,6 +26,7 @@ $('#initials').typeahead({}, {
         if($('#' + key))
           $('#' + key).val(user[key]);
       });
+      $('#password').focus();
       setWorkshopProgress();
     });
 });

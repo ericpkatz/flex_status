@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass'); 
 var bower = require('gulp-bower');
+var nodemon = require('gulp-nodemon');
 
 var WorkshopData = {
   "data_structures": {
@@ -78,9 +79,21 @@ var WorkshopData = {
     ]
   },
   'angular-directives': {
-    url: 'https://learn.fullstackacademy.com/workshop/54e3d2ae3804d30c00ba04ce/concepts',
+    url: 'https://learn.fullstackacademy.com/workshop/54e3d2ae3804d30c00ba04ce/concepts.',
+    keyConcepts: [
+      'A callback function for registering a directive needs to return a directive definition',
+      'Directives enable reusability of user interface code.',
+      'The first step in creating a directive is to move the desired html to a template and to create a directive with shared scope.',
+      'For the sake of reusability directives should have isolate scope, this will result in less dependencies.',
+      'Directives are named in camel case but used in hyphen case.'
+    
+    ]
+  },
+  'angular-ngModel-forms': {
+    url: 'https://learn.fullstackacademy.com/workshop/552329c1c5d4410300eedb61/concepts',
     keyConcepts: []
   }
+
 };
 
 
@@ -93,7 +106,7 @@ gulp.task('seed:workshops', function(){
   var db =require('./config/db'); 
   var User = require('./models').User;
   var Workshop = require('./models').Workshop;
-  db.connect()
+  return db.connect()
     .then(function(){
       return Workshop.remove();
     })
@@ -123,7 +136,7 @@ gulp.task('seed:workshops', function(){
 });
 
 gulp.task('sass', function(){
-  gulp.src('assets/styles/**/*.scss')
+  return gulp.src('assets/styles/**/*.scss')
   .pipe(sass())
   .pipe(gulp.dest('public/styles'));
 });
@@ -134,4 +147,10 @@ gulp.task('watch:sass', ['sass'], function(){
 
 gulp.task('install', ['sass', 'bower', 'seed:workshops'], function(){
 
+});
+
+gulp.task('server:dev', ['install', 'watch:sass' ], function(){
+  nodemon({
+    script: 'server.js'
+  });
 });
